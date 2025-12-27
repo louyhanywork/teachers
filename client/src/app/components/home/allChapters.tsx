@@ -60,8 +60,10 @@ const AllChapters = async () => {
 
   {/* ===== Chapters ===== */}
   {allChaptersFromStage.data.chapters
-    .sort((a: any, b: any) => new Date(a.date) - new Date(b.date))
-    .map((chapter: any, index: number) => (
+.sort(
+  (a: any, b: any) =>
+    new Date(a.date).getTime() - new Date(b.date).getTime()
+).map((chapter: any, index: number) => (
       <section
         key={index}
         className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition"

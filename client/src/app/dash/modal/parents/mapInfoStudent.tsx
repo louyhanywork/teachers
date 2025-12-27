@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next/client";
 
-const MapInfoStudent = ({ id }) => {
+const MapInfoStudent = ({ id }:any) => {
   const [dataStudent, setDataStudent] = useState([]);
   useEffect(() => {
     const allDataFetch = async () => {

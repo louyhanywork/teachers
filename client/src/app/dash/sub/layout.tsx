@@ -1,4 +1,3 @@
-import NavDash from "./navDash";
 import { Suspense } from "react";
 
 export const metadata = {
@@ -6,7 +5,7 @@ export const metadata = {
   description: "Explore chapters and lessons available in this course.",
 };
 
-export default function dashLayout({
+export default function SubLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -15,10 +14,9 @@ export default function dashLayout({
     <body>
                     <Suspense fallback={null}>
 
-      <NavDash />
-
       {children}
                     </Suspense>
+
     </body>
   );
 }

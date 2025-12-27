@@ -41,7 +41,7 @@ const AllUser = () => {
     getStudent();
   }, [getStudent]);
 
-  useEffect(() => {
+  useEffect(():any => {
     socket.on("all_student", getStudent);
     return () => socket.off("all_student", getStudent);
   }, [getStudent]);
@@ -53,8 +53,8 @@ const AllUser = () => {
       );
       //filter unique parent_id
       const uniqueParents = res.data.data.filter(
-        (parent, index, self) =>
-          index === self.findIndex((p) => p.parent_id === parent.parent_id)
+        (parent:any, index:any, self:any) =>
+          index === self.findIndex((p:any) => p.parent_id === parent.parent_id)
       );
       setFetchParentId(uniqueParents);
     } catch (error) {
@@ -66,7 +66,7 @@ const AllUser = () => {
     getParent();
   }, [getParent]);
 
-  useEffect(() => {
+  useEffect(():any => {
     socket.on("all_parent", getParent);
     return () => socket.off("all_parent", getParent);
   }, [getParent]);
@@ -86,7 +86,7 @@ const AllUser = () => {
     getAssistant();
   }, [getAssistant]);
 
-  useEffect(() => {
+  useEffect(():any => {
     socket.on("all_assist", getAssistant);
     return () => socket.off("all_assist", getAssistant);
   }, [getAssistant]);
@@ -100,10 +100,10 @@ const AllUser = () => {
               Students:
             </h3>
             <div className="flex items-center">
-              {process.env.limitStudent}/{" "}
+              {Number(process.env.limitStudent)}/{" "}
               <span
                 className={`${
-                  (student.length / process.env.limitStudent) * 100 >= 50
+                  (student.length / Number(process.env.limitStudent)) * 100 >= 50
                     ? "bg-red-300"
                     : "bg-green-300"
                 } p-1 rounded-md`}
@@ -187,7 +187,7 @@ const AllUser = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {fetchParentId.map((parentId, index) => (
+                  {fetchParentId.map((parentId:any, index:any) => (
                     <AllParent key={index} parentId={parentId.parent_id} />
                   ))}
                 </tbody>
@@ -237,7 +237,7 @@ const AllUser = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {fetchAssistId.map((assist, index) => (
+                  {fetchAssistId.map((assist:any, index:any) => (
                     <AllAssistant key={index} assist={assist} />
                   ))}
                 </tbody>

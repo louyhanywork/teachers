@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MapInfoStudent from "./mapInfoStudent";
 
-const AddStudentParentDash = ({ setOpenModalStudent, dataUser }) => {
+const AddStudentParentDash = ({ setOpenModalStudent, dataUser }:any) => {
   const [saving, setSaving] = useState(false);
   const [allDataStudentId, setAllDataStudentId] = useState([]);
   const [idSTudent, setIdSTudent] = useState("");
@@ -21,6 +22,7 @@ const AddStudentParentDash = ({ setOpenModalStudent, dataUser }) => {
     allStudentTeacher();
   }, []);
   const addStudent = async () => {
+    setSaving(true);
     try {
       const res = await axios.get(
         `${process.env.local}/ps/parent/${dataUser.id}/teacher/${process.env.teacherId}/student/${idSTudent}`
@@ -34,10 +36,12 @@ const AddStudentParentDash = ({ setOpenModalStudent, dataUser }) => {
           student_id: idSTudent,
         });
         setOpenModalStudent(false);
-      }
+      } 
     } catch (error) {
       console.log(error);
-    }
+    }finally {
+        setSaving(false);
+      }
   };
   return (
     <>

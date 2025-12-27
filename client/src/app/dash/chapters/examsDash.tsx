@@ -7,7 +7,7 @@ import EditExamDash from "../modal/chapter/examFolder/editExamDash";
 import { IoMdAddCircle } from "react-icons/io";
 import AddFormModal from "../modal/chapter/examFolder/addFormModal";
 
-const ExamsDash = ({ lessonId }): any => {
+const ExamsDash = ({ lessonId }:any): any => {
   const [openExamId, setOpenExamId] = useState<string | null>(null);
   const [dataExam, setDataExam] = useState([]);
   const [modalAddExam, setModalAddExam] = useState(false);
@@ -26,7 +26,7 @@ const ExamsDash = ({ lessonId }): any => {
   useEffect(() => {
     fetchExams();
   }, [fetchExams]);
-  const handelDeleteExam = async (examId) => {
+  const handelDeleteExam = async (examId:any) => {
     try {
       const res = await axios.delete(`${process.env.local}/exams/${examId}`);
       console.log(res.data.data);

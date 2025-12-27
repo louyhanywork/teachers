@@ -7,9 +7,9 @@ import axios from "axios";
 import StudentsLink from "../modal/parents/studentsLink";
 import AddStudentParentDash from "../modal/parents/addStudentParentDash";
 
-const AllParent = ({ parentId }): any => {
-  const [dataUser, setDataUser] = useState({});
-  const [dataStudentID, setDataStudentID] = useState([]);
+const AllParent = ({ parentId }:any): any => {
+  const [dataUser, setDataUser] = useState<any>({});
+  const [dataStudentID, setDataStudentID] = useState<any[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [OpenModalStudent, setOpenModalStudent] = useState(false);
   const fetchLinkedStudents = useCallback(async () => {

@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { IoMdAddCircle } from "react-icons/io";
 import React, { useState } from "react";
 import axios from "axios";
 
-const AddLessonButton = ({ chapterId, onLessonAdded }) => {
+const AddLessonButton = ({ chapterId, onLessonAdded }: any) => {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [price, setPrice] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+const [price, setPrice] = useState<number>(0);
 
   const addLessonHandel = async () => {
     setLoading(true);
@@ -39,7 +40,7 @@ const AddLessonButton = ({ chapterId, onLessonAdded }) => {
         video_url: videoUrl,
         image_url: uploadedImageUrl,
         is_active: true,
-        is_paid: price > 0 ? true : false,
+        is_paid: Number(price) >= 0 ? true : false,
         price,
       });
 
@@ -111,7 +112,11 @@ const AddLessonButton = ({ chapterId, onLessonAdded }) => {
                   id="img"
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setImageFile(e.target.files[0])}
+                  onChange={(e) => {
+                    const files = e.target.files;
+                    if (!files || files.length === 0) return;
+                    setImageFile(files[0]);
+                  }}
                   className="border text-base border-slate-300 p-2 shadow-md rounded-md w-full"
                 />
               </div>

@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { FaArrowRight } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-
-const AllLessonsDash = ({ chapterId, setLessonId }) => {
-  const [allData, setAllData] = useState([]);
+type Lesson = {
+  id: string;
+  title: string;
+  date: string;
+};
+const AllLessonsDash = ({ chapterId, setLessonId }:any) => {
+const [allData, setAllData] = useState<Lesson[]>([]);
 
   const addLessonsFetch = useCallback(async () => {
     try {
@@ -22,7 +27,7 @@ const AllLessonsDash = ({ chapterId, setLessonId }) => {
   useEffect(() => {
     addLessonsFetch();
   }, [addLessonsFetch]);
-  const handleDeleteLesson = async (lessonId) => {
+  const handleDeleteLesson = async (lessonId:any) => {
     try {
       const res = await axios.delete(
         `${process.env.local}/lessons/${lessonId}`
@@ -37,7 +42,7 @@ const AllLessonsDash = ({ chapterId, setLessonId }) => {
   return (
     <div>
       {allData
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .sort((a:any, b:any) => new Date(a.date).getTime() - new Date(b.date).getTime())
         .map((l, i) => (
           <div
             className="pl-2 hover:pl-4 flex justify-between gap-4 items-center duration-300 my-2 cursor-pointer "

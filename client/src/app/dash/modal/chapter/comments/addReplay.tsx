@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { getCookie } from "cookies-next/client";
@@ -5,148 +7,161 @@ import { jwtVerify } from "jose";
 import axios from "axios";
 import socket from "../../../../lib/socket";
 
-const AddReplay = ({ commentId }) => {
+/* ================= TYPES ================= */
+
+type StudentPayload = {
+  roleData: {
+    id: string;
+    role?: string;
+  };
+  iat?: number;
+  exp?: number;
+};
+
+/* ================= COMPONENT ================= */
+
+const AddReplay = ({ commentId }: { commentId: string }) => {
   const [errText, setErrText] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [textInput, setTextInput] = useState("");
-  const [idUser, setIdUser] = useState("");
+  const [userData, setUserData] = useState<StudentPayload | null>(null);
 
   const userDe = getCookie("UserDe");
 
-  useEffect(() => {
-    const validationUserToken = async () => {
-      try {
-        if (!userDe) {
-          throw new Error("Missing token data");
-        }
+  /* ================= VERIFY TOKEN ================= */
 
-        const StudentToken = await jwtVerify(
+  useEffect(() => {
+    const validateUserToken = async () => {
+      try {
+        if (!userDe) return;
+
+        const decoded = await jwtVerify(
           userDe as string,
-          new TextEncoder().encode(process.env.TOKEN_SECRET)
+          new TextEncoder().encode(
+            process.env.NEXT_PUBLIC_TOKEN_SECRET
+          )
         );
 
-        const studentPayload =
-          StudentToken.payload as unknown as StudentPayload;
+        const payload = decoded.payload as unknown as StudentPayload;
 
-        // Ensure the required `student` property exists
-        if (!studentPayload.roleData) {
-          throw new Error("Student data is missing in the token");
+        if (!payload?.roleData?.id) {
+          throw new Error("Invalid token payload");
         }
 
-        setIdUser(studentPayload); // No more type errors
+        setUserData(payload);
       } catch (error) {
-        console.log(error);
+        console.log("Token validation error:", error);
       }
     };
-    validationUserToken();
+
+    validateUserToken();
   }, [userDe]);
 
-  const handelFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  /* ================= FILE HANDLER ================= */
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
     }
   };
+
+  /* ================= ADD REPLY ================= */
+
   const addCommentHandel = async () => {
-    if (textInput) {
-      setIsSubmitting(true);
-      try {
-        if (file) {
-          const formData = new FormData();
-          formData.append(
-            file.type.split("/")[0] === "image" ? "image" : "file",
-            file
-          );
-
-          const fetchFile = await axios.post(
-            `${process.env.img}/upload/${
-              file.type.split("/")[0] === "image" ? "image" : "file"
-            }`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-
-          await axios.post(`${process.env.local}/replay`, {
-            comment_id: commentId,
-            user_id: idUser.roleData.id,
-            text: textInput,
-            file_url: fetchFile.data,
-            file_type: file.type.split("/")[0] === "image" ? "image" : "file",
-          });
-          socket.emit("add_replay");
-        } else {
-          await axios.post(`${process.env.local}/replay`, {
-            comment_id: commentId,
-            user_id: idUser.roleData.id,
-            text: textInput,
-            file_url: "",
-            file_type: "",
-          });
-          socket.emit("add_replay");
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsSubmitting(false);
-        setTextInput("");
-        setFile(null);
-      }
-    } else {
+    if (!textInput.trim()) {
       setErrText(true);
-      setTimeout(() => {
-        setErrText(false);
-      }, 5000);
+      setTimeout(() => setErrText(false), 3000);
+      return;
+    }
+
+    if (!userData) return;
+
+    setIsSubmitting(true);
+
+    try {
+      let fileUrl = "";
+      let fileType = "";
+
+      if (file) {
+        fileType = file.type.startsWith("image") ? "image" : "file";
+
+        const formData = new FormData();
+        formData.append(fileType, file);
+
+        const uploadRes = await axios.post(
+          `${process.env.NEXT_PUBLIC_IMG}/upload/${fileType}`,
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        fileUrl = uploadRes.data;
+      }
+
+      await axios.post(`${process.env.NEXT_PUBLIC_LOCAL}/replay`, {
+        comment_id: commentId,
+        user_id: userData.roleData.id,
+        text: textInput,
+        file_url: fileUrl,
+        file_type: fileType,
+      });
+
+      socket.emit("add_replay");
+
+      setTextInput("");
+      setFile(null);
+    } catch (error) {
+      console.log("Add replay error:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  /* ================= UI ================= */
+
   return (
     <div className="bg-white shadow-md rounded-md">
-      <div className="flex gap-3 items-center p-2 px-4 ">
+      <div className="flex gap-3 items-center p-2 px-4">
         <textarea
           rows={2}
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
           className={`${
-            errText ? "border-red-400 border-4 duration-75 animate-pulse  " : ""
-          } w-full p-3 rounded-md focus:shadow-2xl resize-none`}
+            errText
+              ? "border-red-400 border-4 animate-pulse"
+              : ""
+          } w-full p-3 rounded-md resize-none`}
           placeholder="Write your comment here..."
-        />{" "}
+        />
+
         <label htmlFor="file-input" className="cursor-pointer">
           <CiImageOn size={24} className="text-gray-600 hover:text-gray-800" />
-        </label>{" "}
+        </label>
+
         <input
           id="file-input"
           type="file"
           accept="image/*,application/pdf"
           className="hidden"
-          onChange={handelFile}
+          onChange={handleFile}
         />
+
         <button
-          type="submit"
+          type="button"
           disabled={isSubmitting}
-          className="flex items-center cursor-pointer justify-center px-5 py-1 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 transition disabled:bg-gray-400"
-          onClick={(e) => {
-            e.preventDefault(); // Prevent form submission and handle manually
-            addCommentHandel();
-          }}
+          onClick={addCommentHandel}
+          className="flex items-center justify-center px-5 py-1 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 disabled:bg-gray-400"
         >
-          {isSubmitting ? <span>Submitting...</span> : <span>Post</span>}
+          {isSubmitting ? "Submitting..." : "Post"}
         </button>
       </div>
-      <div className="px-5 py-2">
-        {file && (
-          <div className="mt-2 text-sm text-gray-500">
-            <span>
-              {file.type.split("/")[1]}: {file.name}
-            </span>
-          </div>
-        )}
-      </div>
+
+      {file && (
+        <div className="px-5 py-2 text-sm text-gray-500">
+          {file.type.split("/")[1]} : {file.name}
+        </div>
+      )}
     </div>
   );
 };

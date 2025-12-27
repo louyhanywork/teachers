@@ -18,7 +18,6 @@ interface Lesson {
 
 interface SubAndViewLessonProps {
   lesson: Lesson;
-  studentId: string;
 }
 
 const SubAndViewLesson: React.FC<SubAndViewLessonProps> = ({ lesson }) => {

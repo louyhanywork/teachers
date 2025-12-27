@@ -38,7 +38,8 @@ const Comment = ({ lessonId, studentId }: CommentProps) => {
   const [studentDate, setStudentDate] = useState<StudentData>({});
   const [userData, setUserData] = useState<UserData>({}); // Define the type for userData
 
-  const fetchData = async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchData = useCallback(async () => {
     try {
       const commentsRes = await axios.get(
         `${process.env.local}/comments/lesson/${lessonId}/student/${studentId}`
@@ -60,11 +61,11 @@ const Comment = ({ lessonId, studentId }: CommentProps) => {
     } catch (error) {
       console.error("Error fetching comments or student data:", error);
     }
-  };
+  });
 
   useEffect(() => {
     fetchData();
-  }, [lessonId, studentId]);
+  }, [fetchData, lessonId, studentId]);
 
   useEffect(() => {
     socket.on("all_com", () => {
@@ -76,7 +77,7 @@ const Comment = ({ lessonId, studentId }: CommentProps) => {
         fetchData();
       });
     };
-  }, []);
+  }, [fetchData]);
 
   return (
     <div className="my-5 py-4 bg-blue-100 p-3 rounded-3xl ">

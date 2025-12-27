@@ -56,7 +56,7 @@ const EditChapterName = ({
                 <option value="" disabled>
                   Select Grade Level
                 </option>
-                {dataTeacher.map((grade, index) => (
+                {dataTeacher.map((grade:any, index:any) => (
                   <option key={index} value={grade}>
                     {grade}
                   </option>

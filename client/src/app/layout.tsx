@@ -2,6 +2,7 @@ import NavBar from "./components/navBar";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 // import { Geist } from "next/font/google";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Course Chapters",
@@ -31,7 +32,11 @@ export default function RootLayout({
       >
         {/* <div className="container md:w-9/12  p-10 md:rounded-xl bg-white  md:min-h-[90vh] h-full shadow-2xl "> */}
         <div className="w-full overflow-x-hidden">
+                    <Suspense fallback={null}>
+
           <NavBar />
+                    </Suspense>
+
           {children}
         </div>
       </body>

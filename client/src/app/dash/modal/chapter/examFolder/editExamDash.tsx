@@ -13,7 +13,7 @@ const EditExamDash = ({
   examId,
 }: {
   setOpenModelEditExam: (val: boolean) => void;
-  examId: string;
+  examId: any;
 }) => {
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -129,15 +129,13 @@ const EditExamDash = ({
             className="cursor-pointer w-9 h-9 text-blue-600"
             onClick={() => setOpen(true)}
           />
-          <AddFormModal
-            open={open}
-            setOpen={setOpen}
-            type="question"
-            examId={examId}
-            onCreated={() => {
-              fetchExamDetails();
-            }}
-          />
+      <AddFormModal
+  open={open}
+  setOpen={setOpen}
+  type="question"
+  examId={examId}
+  fetchExams={fetchExamDetails}
+/>
         </div>
 
         {currentQuestion ? (

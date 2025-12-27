@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import axios from "axios";
 import { FaPoundSign } from "react-icons/fa";
 
-const EditNameLesson = ({ lesson, setLesson }) => {
+const EditNameLesson = ({ lesson, setLesson }:any) => {
   const [openModal, setOpenModal] = useState(false);
   const [newTitle, setNewTitle] = useState(lesson.title || "");
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ const EditNameLesson = ({ lesson, setLesson }) => {
       setLoading(false);
     }
   };
-  const handleEditActive = async (activeSta) => {
+  const handleEditActive = async (activeSta:any) => {
     setLoading(true);
     try {
       await axios.patch(`${process.env.local}/lessons`, {
@@ -62,7 +63,7 @@ const EditNameLesson = ({ lesson, setLesson }) => {
       setLoading(false);
     }
   };
-  const handleEditPrice = async (price) => {
+  const handleEditPrice = async (price:any) => {
     setLoading(true);
     try {
       await axios.patch(`${process.env.local}/lessons`, {

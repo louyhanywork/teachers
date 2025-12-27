@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactPlayer from "react-player";
 import React, { useState } from "react";
 import axios from "axios";
 
-const EditPlayer = ({ lesson, setLesson }) => {
+const EditPlayer = ({ lesson, setLesson }:any) => {
   const [openModal, setOpenModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [loading, setLoading] = useState(false);

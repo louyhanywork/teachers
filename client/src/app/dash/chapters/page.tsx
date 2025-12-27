@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -102,9 +103,9 @@ const ChapterDash = () => {
           </div>
           {dataChapter
             .sort(
-              (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+              (a:any, b:any) => new Date(a.date).getTime() - new Date(b.date).getTime()
             )
-            .map((c, i) => (
+            .map((c:any, i:any) => (
               <div key={i} className="w-full">
                 <div className="flex text-xl gap-4 justify-between items-center mt-3 p-2 bg-white rounded-lg hover:bg-gray-100 capitalize duration-300">
                   <div>
@@ -169,23 +170,23 @@ const ChapterDash = () => {
                 type="text"
                 className="border border-slate-300 rounded-md p-2 w-full"
               />
-              <select
-                name="chapter"
-                id="chapter"
-                onChange={(e) => setGrade(e.target.value)}
-                value={grade}
-                placeholder="Select Grade"
-                className="border border-slate-300 rounded-md p-2 w-full mt-2"
-              >
-                <option disabled value="">
-                  chose grade
-                </option>
-                {dataTeacher.map((grade, index) => (
-                  <option key={index} value={grade}>
-                    {grade}
-                  </option>
-                ))}
-              </select>
+     <select
+  name="chapter"
+  id="chapter"
+  onChange={(e) => setGrade(e.target.value)}
+  value={grade}
+  className="border border-slate-300 rounded-md p-2 w-full mt-2"
+>
+  <option disabled value="">
+    Choose grade
+  </option>
+  {dataTeacher.map((grade, index) => (
+    <option key={index} value={grade}>
+      {grade}
+    </option>
+  ))}
+</select>
+
             </div>
             <div className="flex justify-between gap-2">
               {loading ? (

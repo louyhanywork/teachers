@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback } from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,10 +8,10 @@ import AddReplay from "./addReplay";
 import socket from "../../../../lib/socket";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
-const ReplayDash = ({ commentId }) => {
+const ReplayDash = ({ commentId }:any) => {
   const [loading, setLoading] = useState(false);
   const [allDataReplay, setAllDataReplay] = useState([]);
-  const deleteRep = async (idRep) => {
+  const deleteRep = async (idRep:any) => {
     try {
       const res = await axios.delete(`${process.env.local}/replay/${idRep}`);
       console.log(res.data.data);
@@ -45,8 +46,10 @@ const ReplayDash = ({ commentId }) => {
         <div>Loading...</div>
       ) : (
         allDataReplay
-          .sort((a, b) => new Date(a.date) - new Date(b.date))
-          .map((replay, index) => (
+.sort(
+  (a: any, b: any) =>
+    new Date(a.date).getTime() - new Date(b.date).getTime()
+)          .map((replay:any, index:any) => (
             <>
               <div key={index} className="mb-2 p-2 border rounded-md bg-white">
                 <div key={replay.id} className="gap-3 p-4 bg-white  ">

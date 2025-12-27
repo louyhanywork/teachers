@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
@@ -7,7 +8,7 @@ import Image from "next/image";
 import ReplayDash from "./replayDash";
 import socket from "../../../../lib/socket";
 
-const CommentAllDash = ({ lessonId }) => {
+const CommentAllDash = ({ lessonId }:any) => {
   const [allComments, setAllComments] = useState([]);
   const [openReplayId, setOpenReplayId] = useState<number | null>(null);
 
@@ -28,7 +29,7 @@ const CommentAllDash = ({ lessonId }) => {
   socket.on("all_comment", () => {
     fetchComments();
   });
-  const EditShowComment = async (text, file_url, file_type, shown, id) => {
+  const EditShowComment = async (text:any, file_url:any, file_type:any, shown:any, id:any) => {
     try {
       await axios.patch(`${process.env.local}/comments`, {
         text,
@@ -52,9 +53,9 @@ const CommentAllDash = ({ lessonId }) => {
       <div className="bg-slate-200 p-2 rounded-md">
         {allComments
           .sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+            (a:any, b:any) => new Date(a.date).getTime() - new Date(b.date).getTime()
           )
-          .map((c, i) => (
+          .map((c:any, i:any) => (
             <div
               key={i}
               className="gap-3 mb-5 rounded-r-md bg-white border-l-black border-l-3"

@@ -9,7 +9,7 @@ import EditFilesLesson from "../modal/chapter/editFilesLesson";
 import ExamsDash from "./examsDash";
 import CommentAllDash from "../modal/chapter/comments/comment";
 
-const LessonsFetch = ({ lessonId }): any => {
+const LessonsFetch = ({ lessonId }:any): any => {
   const [lesson, setLesson] = useState<any>(null);
 
   useEffect(() => {
