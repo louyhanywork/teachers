@@ -15,7 +15,7 @@ const PaidLessons = async ({ roleDet }: any) => {
     );
 
     return (
-      <div className="w-full  px-4">
+      <div className="w-full   px-4">
         <h2 className="text-[#121416] flex items-center gap-2 text-base font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
           <Image src={purchasedCoursesIcon} alt="Purchased Courses" width={20} height={20} />
 <span>Purchased Courses</span>      
@@ -37,7 +37,7 @@ const PaidLessons = async ({ roleDet }: any) => {
               return (
                 <div
                   key={index}
-                  className="flex  gap-2 border-b border-r last:border-0 p-4 justify-between items-center w-full"
+                  className="flex flex-wrap  gap-2 border-b border-r last:border-0 p-4 justify-between items-center w-full"
                 >
                   <div>
                     <div>
