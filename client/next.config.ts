@@ -46,9 +46,15 @@ const nextConfig: NextConfig = {
     "*": ["./node_modules/next-video/**/*"],
   },
 
+  env: {
+    local: process.env.LOCAL_API_URL,
+    img: process.env.LOCAL_IMG_URL,
+    teacherId: process.env.TEACHER_ID,
+    TOKEN_SECRET: process.env.TOKEN_SECRET,
+    limitStudent: process.env.LIMIT_STUDENT,
+    assist: process.env.ASSIST,
+  },
 
-
-  // ✔️ نجبره يستخدم webpack
   webpack: (config) => {
     return config;
   },

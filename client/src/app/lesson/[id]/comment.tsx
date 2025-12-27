@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import { getCookie } from "cookies-next/client";
 import axios from "axios";
 import Image from "next/image";
@@ -38,30 +38,31 @@ const Comment = ({ lessonId, studentId }: CommentProps) => {
   const [studentDate, setStudentDate] = useState<StudentData>({});
   const [userData, setUserData] = useState<UserData>({}); // Define the type for userData
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchData = useCallback(async () => {
-    try {
-      const commentsRes = await axios.get(
-        `${process.env.local}/comments/lesson/${lessonId}/student/${studentId}`
-      );
-      const studentRes = await axios.get(
-        `${process.env.local}/students/${studentId}`
-      );
-      const userRes = await axios.get(
-        `${process.env.local}/users/${studentId}`,
-        {
-          headers: {
-            Authorization: `${getCookie("dataRoleToken")}`,
-          },
-        }
-      );
-      setCommentsData(commentsRes.data.data);
-      setStudentDate(studentRes.data.data);
-      setUserData(userRes.data.data); // Set the userData with the correct structure
-    } catch (error) {
-      console.error("Error fetching comments or student data:", error);
-    }
-  });
+const fetchData = useCallback(async () => {
+  try {
+    const commentsRes = await axios.get(
+      `${process.env.local}/comments/lesson/${lessonId}/student/${studentId}`
+    );
+    const studentRes = await axios.get(
+      `${process.env.local}/students/${studentId}`
+    );
+    const userRes = await axios.get(
+      `${process.env.local}/users/${studentId}`,
+      {
+        headers: {
+          Authorization: `${getCookie("dataRoleToken")}`,
+        },
+      }
+    );
+
+    setCommentsData(commentsRes.data.data);
+    setStudentDate(studentRes.data.data);
+    setUserData(userRes.data.data);
+  } catch (error) {
+    console.error("Error fetching comments or student data:", error);
+  }
+}, [lessonId, studentId]);
+
 
   useEffect(() => {
     fetchData();
