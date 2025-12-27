@@ -50,7 +50,7 @@ const nextConfig: NextConfig = {
     customKey: "novaraTo",
     local: "https://teachers-server.onrender.com/api",
     img: "https://teachers-server.onrender.com",
-    teacherId: "3703a0b7-59ba-4f58-af78-4347b04dd3f3",
+    teacherId: "a03c6246-4690-40b2-9e5b-3dc745a6afd1",
     TOKEN_SECRET: "tokenPas123",
     limitStudent: "50",
     assist: "50",
