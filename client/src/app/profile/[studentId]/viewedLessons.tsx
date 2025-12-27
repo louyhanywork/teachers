@@ -58,12 +58,12 @@ const ViewedLessons = async ({ roleDet }: any) => {
 
                 <div className="ml-4 shrink-0">
                   {view.progress >= 95 ? (
-                    <span className="bg-green-50 text-[#07835b] border border-green-200 text-xs font-bold px-4 py-2 rounded-full">
+                    <span className="bg-green-50 text-[#07835b] border border-green-200 text-xs font-bold px-4 py-2 rounded-full my-2">
                       Completed
                     </span>
                   ) : (
                     <Link href={`/lesson/${view.lesson_id}`}>
-                      <button className="bg-[#249b63] cursor-pointer hover:bg-[#1e8354] text-white px-6 py-2.5 rounded-xl font-bold transition-colors text-sm shadow-sm">
+                      <button className="bg-[#249b63] cursor-pointer hover:bg-[#1e8354] text-white px-6 py-2.5 rounded-xl font-bold transition-colors text-sm shadow-sm my-2">
                         Continue
                       </button>
                     </Link>

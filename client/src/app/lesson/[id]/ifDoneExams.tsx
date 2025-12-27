@@ -48,7 +48,7 @@ const IfDoneExams: React.FC<Props> = ({ exam, lessonId, studentId }) => {
     return (
       <Link
         href={`/exam/${exam.id}?lessonId=${lessonId}&studentId=${studentId}`}
-        className="flex items-center gap-3 mb-2 cursor-pointer hover:bg-slate-100 hover:p-3 hover:mb-3 duration-300 rounded-md transition-all"
+        className="flex items-center gap-3 mb-3 cursor-pointer hover:bg-slate-100 hover:p-3 hover:mb-3 duration-300 rounded-md transition-all"
       >
         <div className="flex items-center justify-center bg-[#F0F2F5] rounded-md p-3">
           <MdOutlineAssessment className="text-xl " />
@@ -70,7 +70,7 @@ const IfDoneExams: React.FC<Props> = ({ exam, lessonId, studentId }) => {
   );
 
   return (
-    <div className=" flex items-center gap-3  cursor-pointer border-green-300 border-2 p-2 rounded-md ">
+    <div className=" flex items-center gap-3  cursor-pointer border-green-300 border-2 p-2 rounded-md mb-3">
       <div className="flex items-center justify-center bg-[#F0F2F5] rounded-md p-3">
         <MdOutlineAssessment className="text-xl " />
       </div>

@@ -86,7 +86,7 @@ const fetchData = useCallback(async () => {
         {commentsData
           .filter((e) => e.shown === false)
           .sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           )
           .map((comment) => {
             return (
@@ -118,19 +118,19 @@ const fetchData = useCallback(async () => {
                         {new Date(comment.date).toLocaleString()}
                       </time>
                     </div>
-                    <div className="mt-3 bg-white">
+                    <div className="mt-3 bg-white p-2 rounded-md flex flex-col-reverse  ">
                       {comment.file_type === "image" && (
                         <Image
                           src={`${process.env.img}/image/${comment.file_url}`}
                           alt="Comment image"
                           width={400}
                           height={400}
-                          className="w-64 h-64 rounded-md object-contain shadow-md"
+                          className="max:w-64 max:h-64 w-auto rounded-md object-contain "
                         />
                       )}
                       {comment.file_type === "file" && (
                         <div className="flex items-center gap-3">
-                          <span className="text-sm text-gray-700 truncate max-w-xs">
+                          <span className="text-sm text-gray-700 truncate max-w-xs hidden md:block w-full">
                             {comment.file_url}
                           </span>
                           <Link
@@ -144,7 +144,7 @@ const fetchData = useCallback(async () => {
                           </Link>
                         </div>
                       )}
-                      <p className="mt-3 text-gray-800 text-base whitespace-pre-line p-2 rounded-md">
+                      <p className="mt-3 text-gray-800 text-base whitespace-pre-line p-2 rounded-md w-full">
                         {comment.text}
                       </p>
                     </div>
