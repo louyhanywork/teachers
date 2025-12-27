@@ -2,9 +2,11 @@ import { withNextVideo } from "next-video/process";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    typescript: {
+  // ❗ مؤقتًا (مش أنصح بيه دايمًا)
+  typescript: {
     ignoreBuildErrors: true,
   },
+
   images: {
     remotePatterns: [
       {
@@ -28,19 +30,35 @@ const nextConfig: NextConfig = {
         hostname: "192.168.1.3",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "teachers-server.onrender.com",
+        pathname: "**",
+      },
     ],
+  },
+
+  // ❗ مهم جدًا لحل مشكلة Turbopack
+  turbopack: {},
+
+  // ✔️ اتشالت من experimental
+  outputFileTracingIncludes: {
+    "*": ["./node_modules/next-video/**/*"],
   },
 
   env: {
     customKey: "novaraTo",
-    // local: "http://localhost:5000/api",
-    // img: "http://localhost:5000",
     local: "https://teachers-server.onrender.com/api",
     img: "https://teachers-server.onrender.com",
     teacherId: "3703a0b7-59ba-4f58-af78-4347b04dd3f3",
     TOKEN_SECRET: "tokenPas123",
     limitStudent: "50",
     assist: "50",
+  },
+
+  // ✔️ نجبره يستخدم webpack
+  webpack: (config) => {
+    return config;
   },
 };
 
