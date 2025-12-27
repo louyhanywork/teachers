@@ -123,11 +123,12 @@ class ParentsStudentsModel {
 		}
 	}
 	// delete
-	async delete(id: string): Promise<ParentsStudentsTypes> {
+	async delete(studentId: string, parentId: string, teacherId: string): Promise<ParentsStudentsTypes> {
 		try {
 			const connect = await pool.connect()
-			const sql = 'DELETE from parents_students WHERE id=($1) returning *'
-			const result = await connect.query(sql, [id])
+const sql = `
+      DELETE FROM parents_students WHERE student_id = $1 AND parent_id = $2 AND teacher_id = $3  RETURNING *`;
+			const result = await connect.query(sql, [studentId, parentId, teacherId])
 			connect.release()
 			return result.rows[0]
 		} catch (err) {

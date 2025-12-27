@@ -1,26 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import MapInfoStudent from "./mapInfoStudent";
+import socket from '../../../lib/socket';
 
 const AddStudentParentDash = ({ setOpenModalStudent, dataUser }:any) => {
   const [saving, setSaving] = useState(false);
   const [allDataStudentId, setAllDataStudentId] = useState([]);
   const [idSTudent, setIdSTudent] = useState("");
   const [err, setErr] = useState("");
+const allStudentTeacher = useCallback(async () => {
+  try {
+    const res = await axios.get(
+      `${process.env.local}/st/teacher/${process.env.teacherId}`
+    );
+    setAllDataStudentId(res.data.data);
+  } catch (error) {
+    console.log(error);
+  }
+}, []);
+
   useEffect(() => {
-    const allStudentTeacher = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.local}/st/teacher/${process.env.teacherId}`
-        );
-        setAllDataStudentId(res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     allStudentTeacher();
-  }, []);
+  }, [allStudentTeacher]);
+
+    socket.on("all_ps", allStudentTeacher);
+
   const addStudent = async () => {
     setSaving(true);
     try {
@@ -36,6 +41,7 @@ const AddStudentParentDash = ({ setOpenModalStudent, dataUser }:any) => {
           student_id: idSTudent,
         });
         setOpenModalStudent(false);
+        socket.emit("update_ps");
       } 
     } catch (error) {
       console.log(error);

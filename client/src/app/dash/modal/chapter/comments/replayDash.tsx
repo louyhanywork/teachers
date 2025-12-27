@@ -13,8 +13,7 @@ const ReplayDash = ({ commentId }:any) => {
   const [allDataReplay, setAllDataReplay] = useState([]);
   const deleteRep = async (idRep:any) => {
     try {
-      const res = await axios.delete(`${process.env.local}/replay/${idRep}`);
-      console.log(res.data.data);
+     await axios.delete(`${process.env.local}/replay/${idRep}`);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +35,6 @@ const ReplayDash = ({ commentId }:any) => {
   useEffect(() => {
     fetchReplies();
   }, [fetchReplies]);
-  console.log(allDataReplay);
   socket.on("all_replay", () => {
     fetchReplies();
   });

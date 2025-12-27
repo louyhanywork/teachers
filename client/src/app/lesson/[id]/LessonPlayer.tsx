@@ -73,7 +73,6 @@ const LessonPlayer: React.FC<Props> = ({ videoUrl, lessonId, studentId }) => {
         });
       }
 
-      console.log("Progress recorded:", res.data.data);
       setLastRecordedProgress(currentSeconds);
     } catch (error) {
       console.error("Error recording progress:", error);

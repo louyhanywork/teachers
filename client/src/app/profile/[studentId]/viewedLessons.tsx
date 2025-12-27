@@ -41,8 +41,8 @@ const ViewedLessons = async ({ roleDet }: any) => {
                     <LessonName lessonId={view.lesson_id} />
                   </div>
                   
-                  <div className="flex items-center gap-3">
-                    <span className="text-[#637587] text-sm font-medium min-w-fit">Progress:</span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-[#637587] hidden md:block text-sm font-medium min-w-fit">Progress:</span>
                     <div className="w-32 md:w-48 h-2.5 bg-slate-300 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-[#07835b] rounded-full transition-all duration-500" 

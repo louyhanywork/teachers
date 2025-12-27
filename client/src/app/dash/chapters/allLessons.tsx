@@ -29,10 +29,9 @@ const [allData, setAllData] = useState<Lesson[]>([]);
   }, [addLessonsFetch]);
   const handleDeleteLesson = async (lessonId:any) => {
     try {
-      const res = await axios.delete(
+       await axios.delete(
         `${process.env.local}/lessons/${lessonId}`
       );
-      console.log(res.data.data);
       addLessonsFetch();
     } catch (error) {
       console.log(error);

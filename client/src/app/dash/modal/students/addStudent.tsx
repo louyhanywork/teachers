@@ -34,7 +34,9 @@ const AddStudentModal = ({ modal }) => {
         socket.emit("add_student");
       }
     } catch (error) {
-      etErr(error.response.data.message);
+      setErr(error.response.data.message);
+      console.log(error);
+      
       setTimeout(() => {
         setErr("");
       }, 5000);

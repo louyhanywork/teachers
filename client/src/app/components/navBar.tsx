@@ -15,6 +15,7 @@ const NavBar = async () => {
   const cookieStore = await cookies();
   const userDe = cookieStore.get("UserDe");
   const dataRoleToken = cookieStore.get("dataRoleToken");
+console.log(process.env.local);
 
   if (userDe && dataRoleToken) {
     try {

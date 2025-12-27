@@ -5,7 +5,6 @@ import axios from "axios";
 import socket from "../../lib/socket";
 
 const TeacherSubscribe = ({ dataSubTeacher }) => {
-  console.log(dataSubTeacher);
 
   const [expireDateModal, setExpireDateModal] = useState(false);
   const [priceModal, setPriceModal] = useState(false);
@@ -16,7 +15,7 @@ const TeacherSubscribe = ({ dataSubTeacher }) => {
 
   const updatedTeacherSub = async (price, active, expire_date) => {
     try {
-      const res = await axios.patch(`${process.env.local}/teacherSub/`, {
+ await axios.patch(`${process.env.local}/teacherSub/`, {
         id: dataSubTeacher.teacherSub.id,
         price,
         active,
@@ -26,7 +25,6 @@ const TeacherSubscribe = ({ dataSubTeacher }) => {
       setPriceModal(false);
       setActive(false);
       socket.emit("update_teacher");
-      console.log(res.data.data);
     } catch (error) {
       console.error("Update failed:", error);
     }

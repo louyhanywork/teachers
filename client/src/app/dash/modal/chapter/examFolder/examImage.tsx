@@ -18,7 +18,6 @@ const ExamImage = ({
       setPreview(URL.createObjectURL(file));
     }
   };
-  console.log(preview);
 
   return (
     <div className="flex justify-center items-center flex-col mb-4">

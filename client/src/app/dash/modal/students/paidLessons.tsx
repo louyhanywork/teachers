@@ -97,7 +97,7 @@ const PaidLessonsDash = ({ roleDet, studentDet }: any) => {
 
   return (
     <>
-      <div className="w-full p-2 h-60 overflow-y-auto">
+      <div className="w-full p-2 h-60 overflow-y-auto mb-10">
         <h2 className="text-[#121416] flex justify-between text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
           <div> Paid Lessons</div>
           <input
@@ -192,7 +192,7 @@ const PaidLessonsDash = ({ roleDet, studentDet }: any) => {
         )}
 
         <div className="px-4 py-3 @container">
-          <div className="flex overflow-hidden rounded-xl border border-[#dde1e3] bg-white">
+          <div className="flex overflow-auto rounded-xl border border-[#dde1e3] bg-white">
             <table className="flex-1">
               <thead>
                 <tr className="bg-white">

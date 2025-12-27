@@ -141,10 +141,12 @@ routes.patch('/', async (req: Request, res: Response, next) => {
 	}
 })
 //delete
-routes.delete('/:id', async (req: Request, res: Response, next) => {
+routes.delete('/delete/:studentId/:parentId/:teacherId', async (req: Request, res: Response, next) => {
 	try {
 		const parentStudent = await parentsStudentsModel.delete(
-			req.params.id as unknown as string
+			req.params.studentId as unknown as string,
+			req.params.parentId as unknown as string,
+			req.params.teacherId as unknown as string
 		)
 		res.json({
 			status: 'success',

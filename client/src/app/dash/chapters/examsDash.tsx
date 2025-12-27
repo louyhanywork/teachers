@@ -28,8 +28,7 @@ const ExamsDash = ({ lessonId }:any): any => {
   }, [fetchExams]);
   const handelDeleteExam = async (examId:any) => {
     try {
-      const res = await axios.delete(`${process.env.local}/exams/${examId}`);
-      console.log(res.data.data);
+     await axios.delete(`${process.env.local}/exams/${examId}`);
       fetchExams();
     } catch (error) {
       console.log(error);

@@ -11,10 +11,9 @@ const ViewedLessonsDash = ({ roleDet }: any) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
+   await axios.get(
           `${process.env.local}/views/student/${roleDet.id}`
         );
-        console.log(res.data.data);
         setAllViewsFetch(res.data.data);
       } catch (error) {
         console.log(error);
@@ -23,12 +22,12 @@ const ViewedLessonsDash = ({ roleDet }: any) => {
     fetchData();
   }, [roleDet.id]);
   return (
-    <div className="w-full p-2 h-60 overflow-y-auto">
-      <h2 className="text-[#121416] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+    <div className="w-full p-2 h-60 overflow-y-auto my-10">
+      <h2 className="text-[#121416] font-bold ">
         Viewed Lessons
       </h2>
       <div className="px-4 py-3">
-        <div className="flex overflow-hidden rounded-xl border border-[#dde1e3] bg-white">
+        <div className="flex overflow-auto rounded-xl border border-[#dde1e3] bg-white">
           <table className="flex-1">
             <thead>
               <tr className="bg-white">

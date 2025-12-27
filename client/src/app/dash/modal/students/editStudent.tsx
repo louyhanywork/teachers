@@ -4,13 +4,13 @@ import { IoClose } from "react-icons/io5";
 import InfoStudent from "./infoStudent";
 import PaidLessonsDash from "./paidLessons";
 import ViewedLessonsDash from "./viewdLesson";
-import AllViewsExam from "../../../profile/[studentId]/exam/allViewsExam";
 import SubscribeTeacher from "../../../profile/[studentId]/subscribeTeacher";
+import ViewExamDash from './ViewExamDash';
 
 const EditStudent = ({ dataUser, dataStudent, setOpenModal }: any) => {
   return (
-    <div className="fixed flex justify-center items-center top-0 left-0 bg-black/50 w-screen h-screen">
-      <div className="w-10/12 md:w-8/12 bg-white rounded-md p-4 h-11/12 overflow-y-auto">
+    <div className="fixed flex justify-center items-center top-0 left-0 bg-black/50 w-screen h-screen z-50">
+      <div className="w-11/12 md:w-8/12 bg-white rounded-md p-4 h-11/12 overflow-y-auto">
         <div className="flex justify-end">
           <div>
             <IoClose
@@ -25,7 +25,7 @@ const EditStudent = ({ dataUser, dataStudent, setOpenModal }: any) => {
         </div>
         <PaidLessonsDash roleDet={dataUser} studentDet={dataStudent} />
         <ViewedLessonsDash roleDet={dataUser} />
-        <AllViewsExam roleDet={dataUser} />
+        <ViewExamDash roleDet={dataUser} />
       </div>
     </div>
   );

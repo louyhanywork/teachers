@@ -97,7 +97,7 @@ const AddFormModal: React.FC<AddFormModalProps> = ({
           lesson_id: lessonId,
         });
       } else {
-        const res = await axios.post(`${process.env.local}/qa`, {
+   await axios.post(`${process.env.local}/qa`, {
           exams_id: examId,
           question: formData.question,
           answers: formData.answers,
@@ -107,7 +107,6 @@ const AddFormModal: React.FC<AddFormModalProps> = ({
           file_url: uploadedFileName,
           file_type: uploadedFileName ? "image" : "",
         });
-        console.log(res.data.data);
       }
 
       setFormData({

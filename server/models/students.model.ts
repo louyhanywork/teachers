@@ -41,7 +41,7 @@ class StudentsModel {
 
 			throw new Error('Error adding student to teacher')
 		} catch (error) {
-			throw new Error(`Error creating student: ${error}`)
+			throw new Error(` ${error}`)
 		}
 	}
 	// get all

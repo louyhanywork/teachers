@@ -77,7 +77,6 @@ const LessonPage = async ({ params }: { params: Promise<Params> }) => {
     const res = await axios.get(
       `${process.env.local}/subscribe/lesson/${lessonId}/student/${studentData.id}`
     );
-    console.log(res.data.data);
 
     isSubscribed = res.data.data.length;
   } catch (error) {

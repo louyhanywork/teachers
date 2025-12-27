@@ -6,8 +6,7 @@ const AddStudentToParent = ({ setOpenModalStudent }) => {
   useEffect(() => {
     const getAllSTudents = async () => {
       try {
-        const res = await axios.get(`${process.env.local}/students`);
-        console.log(res.data.data);
+       await axios.get(`${process.env.local}/students`);
       } catch (error) {
         console.error("Error fetching students:", error);
       }

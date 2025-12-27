@@ -7,12 +7,14 @@ import InfoStudent from "../students/infoStudent";
 import ViewedLessonsDash from "../students/viewdLesson";
 import PaidLessonsDash from "../students/paidLessons";
 import AllViewsExam from "../../../profile/[studentId]/exam/allViewsExam";
+import { MdDelete } from "react-icons/md";
+import socket from '../../../lib/socket';
 
-const StudentsLink = ({ studentId }) => {
+
+const StudentsLink = ({ studentId, parentId }) => {
   const [roleDet, setRoleDet] = useState({});
   const [studentDet, setStudentDet] = useState({});
   const [openModel, setOpenModel] = useState(false);
-  console.log(studentId);
 
   useEffect(() => {
     const fetchStudentDetails = async () => {
@@ -37,16 +39,29 @@ const StudentsLink = ({ studentId }) => {
     };
     fetchStudentDetails();
   }, [studentId]);
+  const handleDeleteLink = async () => {
+    try {
+      const res =await axios.delete(`${process.env.local}/ps/delete/${studentId}/${parentId}/${process.env.teacherId}`);
+      console.log(res.data.data);
+      socket.emit("update_ps")
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   return (
     <>
       <div className="flex gap-2 mb-4">
         <div>Student:</div>
-        <div
+     <div className="flex items-center gap-2">   <div
           onClick={() => setOpenModel(true)}
           className="text-2xl border-b text-blue-600 hover:text-blue-400 duration-300 cursor-pointer"
         >
           {roleDet.full_name}
         </div>
+        <MdDelete onClick={handleDeleteLink} className="text-red-500 text-2xl hover:text-red-700 cursor-pointer" />
+</div>
         {openModel && (
           <div
             className={`fixed  duration-500 top-0 left-8 flex justify-center items-center w-screen h-screen `}

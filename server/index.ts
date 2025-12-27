@@ -97,6 +97,10 @@ io.on('connection', (socket) => {
 	socket.on('update_teacher', () => {
 		io.emit('all_teacher')
 	})
+	socket.on('update_ps', () => {
+		io.emit('all_ps')
+	})
+	
 	socket.on('disconnect', () => {
 		console.log('🔌 Disconnected socket id:', socket.id)
 	})

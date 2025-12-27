@@ -19,6 +19,7 @@ const EditFilesLesson = ({ lessonId }: { lessonId: string }) => {
   const [titleFiles, setTitleFiles] = useState("");
   const [fileUrl, setFileUrl] = useState<File | null>(null);
   const [fileType, setFileType] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const fetchFiles = useCallback(async () => {
     try {
@@ -39,16 +40,13 @@ const EditFilesLesson = ({ lessonId }: { lessonId: string }) => {
       alert("Please select a file.");
       return;
     }
+    setLoading(true)
 
     const formData = new FormData();
     formData.append(`${fileType}`, fileUrl);
     formData.append("title", titleFiles);
     formData.append("file_type", fileType);
     formData.append("lesson_id", lessonId);
-    console.log(fileUrl);
-    console.log(titleFiles);
-    console.log(fileType);
-    console.log(lessonId);
     try {
       const addFilesUrl = await axios.post(
         `${process.env.img}/upload/${fileType}`,
@@ -60,13 +58,12 @@ const EditFilesLesson = ({ lessonId }: { lessonId: string }) => {
         }
       );
 
-      const res = await axios.post(`${process.env.local}/files`, {
+      await axios.post(`${process.env.local}/files`, {
         title: titleFiles,
         file_url: addFilesUrl.data,
         file_type: fileType,
         lesson_id: lessonId,
       });
-      console.log(res.data.data);
 
       await fetchFiles();
 
@@ -76,6 +73,8 @@ const EditFilesLesson = ({ lessonId }: { lessonId: string }) => {
       setFileType("");
     } catch (error) {
       console.error("Upload error:", error);
+    }finally{
+      setLoading(false)
     }
   };
   const handleDelete = async (fileId: string) => {
@@ -168,12 +167,20 @@ const EditFilesLesson = ({ lessonId }: { lessonId: string }) => {
             />
 
             <div className="flex justify-between gap-4">
+              {loading ?
               <button
-                onClick={handleUpload}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 w-full"
+              className="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-700 w-full"
+              >
+                Uploading...
+              </button>
+              :
+              <button
+              onClick={handleUpload}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 w-full"
               >
                 Upload
               </button>
+              }
               <button
                 onClick={() => setModal(false)}
                 className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 w-full"

@@ -87,7 +87,7 @@ const AllParent = ({ parentId }:any): any => {
               </div>
 
               {dataStudentID.map((student: any, index: number) => (
-                <StudentsLink studentId={student.student_id} key={index} />
+                <StudentsLink studentId={student.student_id} parentId={dataUser.id} key={index} />
               ))}
             </div>
           </div>

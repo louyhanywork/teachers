@@ -63,7 +63,7 @@ const AddParent = ({ setModalAddParent }: any) => {
   return (
     <div className="fixed top-0 left-0 flex justify-center items-center h-screen w-screen bg-black/50 z-50">
       <div className="bg-white rounded-md text-black w-[400px]">
-        <h2 className="text-xl font-semibold text-center py-4">Add Student</h2>
+        <h2 className="text-xl font-semibold text-center py-4">Add Parent</h2>
         <div>
           <div className="text-black text-xl p-4 relative">
             <label
@@ -142,7 +142,7 @@ const AddParent = ({ setModalAddParent }: any) => {
                 onClick={handleAddStudent}
                 className="bg-blue-400 hover:bg-blue-500 duration-300 cursor-pointer w-full text-white px-4 py-2 rounded-md"
               >
-                Add Student
+                Add Parent
               </button>
             ) : (
               <button className="bg-blue-500 duration-300 cursor-pointer w-full text-white px-4 py-2 rounded-md">

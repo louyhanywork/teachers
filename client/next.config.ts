@@ -1,8 +1,7 @@
-import { withNextVideo } from "next-video/process";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // ❗ مؤقتًا (مش أنصح بيه دايمًا)
+
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -28,6 +27,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "192.168.1.3",
+        port: "5000",
         pathname: "**",
       },
       {
@@ -38,15 +38,11 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // ❗ مهم جدًا لحل مشكلة Turbopack
   turbopack: {},
 
-  // ✔️ اتشالت من experimental
-  outputFileTracingIncludes: {
-    "*": ["./node_modules/next-video/**/*"],
-  },
 
   env: {
+    customKey: "novaraTo",
     local: process.env.LOCAL_API_URL,
     img: process.env.LOCAL_IMG_URL,
     teacherId: process.env.TEACHER_ID,
@@ -60,4 +56,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextVideo(nextConfig, { folder: "y" });
+export default nextConfig;
