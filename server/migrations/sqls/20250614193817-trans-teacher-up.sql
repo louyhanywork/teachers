@@ -4,5 +4,6 @@ CREATE TABLE trans_teacher(
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     teacher_id uuid REFERENCES teachers (id),
     student_id uuid REFERENCES students (id),
+    expire_date TIMESTAMP NOT NULL,
     price VARCHAR(200)
 );

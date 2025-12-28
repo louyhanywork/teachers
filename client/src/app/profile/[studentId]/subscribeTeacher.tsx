@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import axios from "axios";
 
 const SubscribeTeacher = ({ studentId, dash }) => {
@@ -7,33 +7,22 @@ const SubscribeTeacher = ({ studentId, dash }) => {
   const [openModel, setOpenModel] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
 
-  const addSub = async () => {
-    try {
-      const res = await axios.post(`${process.env.local}/trans`, {
-        teacher_id: process.env.teacherId,
-        student_id: studentId.id,
-        price: teacherData.data.teacherSub.price,
-      });
-      console.log(res.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  useEffect(() => {
-    let interval;
 
-    const fetchData = async () => {
+
+    const fetchData = useCallback(async () => {
       try {
         const res = await axios.get(
           `${process.env.local}/m/subscribeTeacher/teacher/${process.env.teacherId}/student/${studentId.id}`
         );
         const data = res.data;
+        console.log(data);
+        
         setTeacherData(data);
 
         if (!data.data.teacherSub || !data.data.trans) return;
 
-        const expireDate = new Date(data.data.teacherSub.expire_date);
+        const expireDate = new Date(data.data.trans.expire_date);
         const now = new Date();
 
         const diff = expireDate.getTime() - now.getTime();
@@ -48,12 +37,32 @@ const SubscribeTeacher = ({ studentId, dash }) => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
+    }, [studentId.id]);
+  useEffect(() => {
+    let interval;
 
     fetchData();
 
+
     return () => clearInterval(interval);
-  }, [studentId.id]);
+  }, [fetchData, studentId.id]);
+
+     const addSub = async () => {
+    
+    try {
+      const res = await axios.post(`${process.env.local}/trans`, {
+        teacher_id: process.env.teacherId,
+        student_id: studentId.id,
+        price: teacherData.data.teacherSub.price,
+        expire_date: teacherData.data.teacherSub.expire_date
+      });
+      console.log(res.data.data);
+      fetchData()
+      setOpenModel(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (!teacherData) return <div className="text-center p-6">Loading...</div>;
 

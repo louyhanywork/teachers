@@ -26,14 +26,14 @@ const ViewExamDash = ({ roleDet }: { roleDet: RoleDet }) => {
     const fetchAll = async () => {
       try {
         const allExamFetch = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/exams`
+          `${process.env.local  }/exams`
         );
 
         const examResultsData = await Promise.all(
           allExamFetch.data.data.map(async (exam: any) => {
             try {
               const allAnswers = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/answers/student/${roleDet.id}/exam/${exam.id}`
+                `${process.env.local  }/answers/student/${roleDet.id}/exam/${exam.id}`
               );
 
               if (allAnswers.data.data.length === 0) return null;

@@ -4,5 +4,6 @@ type TransTeacherTypes = {
 	teacher_id: string
 	student_id: string
 	price: string
+	expire_date: string
 }
 export default TransTeacherTypes

@@ -7,10 +7,11 @@ class TransTeacherModal {
 		try {
 			const connect = await pool.connect()
 			const sql =
-				'INSERT INTO trans_teacher (teacher_id, student_id, price) VALUES($1, $2, $3) returning *'
+				'INSERT INTO trans_teacher (teacher_id, student_id, expire_date, price) VALUES($1, $2, $3, $4) returning *'
 			const result = await connect.query(sql, [
 				u.teacher_id,
 				u.student_id,
+				u.expire_date,
 				u.price,
 			])
 			connect.release()
@@ -94,10 +95,11 @@ class TransTeacherModal {
 		try {
 			const connect = await pool.connect()
 			const sql =
-				'UPDATE trans_teacher SET teacher_id=($1), student_id=($2), price=($3) WHERE id=($4)  returning *'
+				'UPDATE trans_teacher SET teacher_id=($1), student_id=($2), expire_date=($3), price=($4) WHERE id=($5)  returning *'
 			const result = await connect.query(sql, [
 				u.teacher_id,
 				u.student_id,
+				u.expire_date,
 				u.price,
 				u.id,
 			])
