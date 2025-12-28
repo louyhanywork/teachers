@@ -125,7 +125,7 @@ const fetchData = useCallback(async () => {
                           alt="Comment image"
                           width={400}
                           height={400}
-                          className="max:w-64 max:h-64 w-auto rounded-md object-contain "
+                          className="max:w-64 max:h-64  w-44 h-44 rounded-md object-contain "
                         />
                       )}
                       {comment.file_type === "file" && (
