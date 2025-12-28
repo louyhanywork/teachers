@@ -69,7 +69,7 @@ const SubAndViewLesson: React.FC<SubAndViewLessonProps> = ({ lesson }) => {
     (!isPaidLesson || isSubscribed);
 
   return (
-    <div className="w-fit max-w-80 flex-shrink-0">
+    <div className="w-64 md:w-80 flex-shrink-0">
       <Link
         href={canAccessLesson ? `/lesson/${lesson.id}` : "#"}
         className={`relative flex flex-col h-96 rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.03] border ${
