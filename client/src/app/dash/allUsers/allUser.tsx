@@ -76,7 +76,6 @@ const AllUser = () => {
       const res = await axios.get(
         `${process.env.local}/m/getAllUserTeacher/${process.env.teacherId}/assistants`
       );
-
       setFetchAssistId(res.data.data);
     } catch (error) {
       console.log(error);
@@ -161,6 +160,18 @@ const AllUser = () => {
             <h3 className="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
               Parent
             </h3>
+             <div className="flex items-center">
+              {Number(process.env.limitStudent)}/{" "}
+              <span
+                className={`${
+                  (fetchParentId.length / Number(process.env.limitStudent)) * 100 >= 50
+                    ? "bg-red-300"
+                    : "bg-green-300"
+                } p-1 rounded-md`}
+              >
+                {fetchParentId.length}
+              </span>
+            </div>
             <button
               onClick={() => setModalAddParent(true)}
               className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#0b80ee] text-white text-sm font-bold leading-normal tracking-[0.015em]"
@@ -211,6 +222,18 @@ const AllUser = () => {
             <h3 className="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
               Assistant
             </h3>
+             <div className="flex items-center">
+              {Number(process.env.assist)}/{" "}
+              <span
+                className={`${
+                  (fetchAssistId.length / Number(process.env.assest)) * 100 >= 50
+                    ? "bg-red-300"
+                    : "bg-green-300"
+                } p-1 rounded-md`}
+              >
+                {fetchAssistId.length}
+              </span>
+            </div>
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#0b80ee] text-white text-sm font-bold leading-normal tracking-[0.015em]">
               <span className="truncate">Add Assistant</span>
             </button>

@@ -40,7 +40,7 @@ const [price, setPrice] = useState<number>(0);
         video_url: videoUrl,
         image_url: uploadedImageUrl,
         is_active: true,
-        is_paid: Number(price) >= 0 ? true : false,
+        is_paid: Number(price) > 0 ? true : false,
         price,
       });
 

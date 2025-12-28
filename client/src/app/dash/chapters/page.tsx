@@ -89,9 +89,9 @@ const ChapterDash = () => {
   };
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="p-4 bg-black/10 rounded-lg shadow-lg md:min-w-3/12 md:w-fit mx-auto md:mx-px w-11/12">
-          <div className="text-2xl font-semibold mb-4 flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row gap-4 p-2">
+        <div className="p-4 bg-black/10 rounded-lg shadow-lg lg:min-w-3/12 lg:w-fit mx-auto lg:mx-px w-11/12 overflow-y-auto h-96 lg:h-screen">
+          <div className="text-2xl font-semibold mb-4 flex justify-between items-center ">
             <div>Chapters</div>
             <IoMdAddCircle
               className="cursor-pointer"

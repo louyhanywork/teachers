@@ -181,10 +181,17 @@ routes.get(
 								lesson.id,
 								student
 							)
+const subscribe = await subscribeModel.getByLessonIdAndStudentIdAndTeacherId(
+				lesson.id as unknown as string,
+				student as unknown as string,
+				teacherId as unknown as string,
+			)
+			
 
 							return {
 								...lesson,
 								views,
+								subscribe
 							}
 						})
 					)
@@ -410,7 +417,7 @@ routes.get(
 							? await studentsModel.getOne(u.student_id)
 							: await parentsModel.getOne(u.parent_id)
 
-					return {...u, extraDataUser, extraDataAccess} // merge single user with their extra data
+					return {...u, extraDataUser, extraDataAccess}
 				})
 			)
 

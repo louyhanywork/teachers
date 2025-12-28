@@ -21,14 +21,12 @@ const AllChapters = async () => {
     const allChaptersFromStage = await axios.get(
       `${process.env.local}/m/chapterLesson/teacher/${process.env.teacherId}/stage/${parsedToken.stage}/student/${parsedToken.id}`
     );
-
     if (!allChaptersFromStage.data.chapters.length) {
       return <div className="text-gray-500">No chapters available.</div>;
     }
 
     return (
       <div className="max-w-full mx-auto px-6 py-8 space-y-12">
-
   {/* ===== Header ===== */}
   <div className="space-y-3">
     <h1 className="text-base md:text-4xl font-extrabold flex items-center gap-3 text-gray-800">

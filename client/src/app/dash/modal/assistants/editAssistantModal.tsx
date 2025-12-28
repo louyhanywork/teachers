@@ -14,7 +14,6 @@ const EditAssistantModal = ({
   );
 
   const allAccess = ["assistants", "students", "parents", "chapters"];
-  console.log(assist);
 
   const toggleAccess = (item: string) => {
     if (accessList.includes(item)) {
@@ -44,7 +43,7 @@ const EditAssistantModal = ({
         <div>
           <h1 className="text-center font-bold text-lg p-4">Edit Assistant</h1>
           <div className="w-8/12 my-10">
-            <div className="header flex items-center gap-3">
+            <div className="header flex flex-wrap items-center gap-3">
               <Image
                 src={`${process.env.img}/image/${assist.extraDataAccess.profile_pic}`}
                 alt="student image"
@@ -56,12 +55,15 @@ const EditAssistantModal = ({
                 <div className="text-[#121416] text-[22px] font-bold leading-tight tracking-[-0.015em]">
                   {dataUser.full_name}
                 </div>
+                <div className="text-[#121416] text-[22px] font-bold leading-tight tracking-[-0.015em]">
+                  {dataUser.phone}
+                </div>
                 <div className="text-[#6a7681] text-base font-normal leading-normal">
                   {dataUser.role}
                 </div>
                 <div className="text-[#6a7681] text-base font-normal leading-normal pr-4 my-2">
                   <span className="block mb-2">Access:</span>
-                  <div className="flex  gap-2 ">
+                  <div className="flex  gap-2 flex-wrap ">
                     {allAccess.map((item, index) => (
                       <span
                         key={index}
@@ -77,9 +79,7 @@ const EditAssistantModal = ({
                     ))}
                   </div>
                 </div>
-                <div className="text-[#6a7681] text-base font-normal leading-normal">
-                  Phone: {dataUser.phone}
-                </div>
+              
               </div>
             </div>
           </div>
