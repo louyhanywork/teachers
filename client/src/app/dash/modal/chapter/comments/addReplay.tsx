@@ -39,7 +39,7 @@ const AddReplay = ({ commentId }: { commentId: string }) => {
         const decoded = await jwtVerify(
           userDe as string,
           new TextEncoder().encode(
-            process.env.NEXT_PUBLIC_TOKEN_SECRET
+            process.env.TOKEN_SECRET
           )
         );
 
@@ -91,7 +91,7 @@ const AddReplay = ({ commentId }: { commentId: string }) => {
         formData.append(fileType, file);
 
         const uploadRes = await axios.post(
-          `${process.env.NEXT_PUBLIC_IMG}/upload/${fileType}`,
+          `${process.env.img}/upload/${fileType}`,
           formData,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
@@ -99,7 +99,7 @@ const AddReplay = ({ commentId }: { commentId: string }) => {
         fileUrl = uploadRes.data;
       }
 
-      await axios.post(`${process.env.NEXT_PUBLIC_LOCAL}/replay`, {
+      await axios.post(`${process.env.local}/replay`, {
         comment_id: commentId,
         user_id: userData.roleData.id,
         text: textInput,

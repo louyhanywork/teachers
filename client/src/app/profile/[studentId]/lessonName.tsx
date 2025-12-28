@@ -24,7 +24,7 @@ const LessonName: React.FC<LessonNameProps> = ({ lessonId }) => {
     fetchLessonName();
   }, [lessonId]);
 
-  return <>{lessonName || "Loading..."}</>;
+  return <span className="truncate">{lessonName || "Loading..."}</span>;
 };
 
 export default LessonName;

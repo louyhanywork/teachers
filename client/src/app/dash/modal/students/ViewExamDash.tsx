@@ -83,13 +83,13 @@ const ViewExamDash = ({ roleDet }: { roleDet: RoleDet }) => {
 
   return (
     <div className="w-full px-4">
-      <h2 className="text-[#121416] text-[22px] font-bold px-4 pb-3 pt-5">
+      <h2 className="text-[#121416] text-[22px] ">
         Exam Results
       </h2>
 
-      <div className="w-full p-4 bg-white rounded-b-2xl">
-        <div className="px-4 py-3">
-          <div className="flex overflow-auto rounded-xl border">
+      <div className="w-full  bg-white rounded-b-2xl">
+        <div className="p-2">
+          <div className="flex overflow-auto rounded-xl ">
             <table className="flex-1">
               <thead>
                 <tr>
@@ -105,12 +105,12 @@ const ViewExamDash = ({ roleDet }: { roleDet: RoleDet }) => {
                     <td>
                       <Link
                         href={`/exam/${result.examId}?lessonId=${result.lessonName}&studentId=${roleDet.id}`}
-                        className="border-b"
+                        className="border-b "
                       >
                         {result.examName}
                       </Link>
                     </td>
-                    <td>
+                    <td >
                       <LessonName lessonId={result.lessonName} />
                     </td>
                     <td>{result.score}%</td>

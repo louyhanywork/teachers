@@ -48,13 +48,13 @@ const ReplayDash = ({ commentId }:any) => {
   (a: any, b: any) =>
     new Date(a.date).getTime() - new Date(b.date).getTime()
 )          .map((replay:any, index:any) => (
-            <>
-              <div key={index} className="mb-2 p-2 border rounded-md bg-white">
+            <div key={index}>
+              <div  className="mb-2 p-2 border rounded-md bg-white">
                 <div key={replay.id} className="gap-3 p-4 bg-white  ">
                   <div className="flex items-start gap-3 p-4">
                     <div className="flex-1">
                       <div className="flex justify-between items-center">
-                        <p>
+                        <div>
                           <div className="flex gap-2">
                             {replay.extraData.profile_pic && (
                               <Image
@@ -65,19 +65,19 @@ const ReplayDash = ({ commentId }:any) => {
                                 className="rounded-md object-cover"
                               />
                             )}
-                            <p>
+                            <div>
                               <span className="text-xs text-slate-500 mr-1">
                                 {replay.user.role}:
                               </span>
                               <span className="font-bold capitalize">
                                 {replay.user.full_name}
                               </span>
-                            </p>
+                            </div>
                           </div>
                           <p className="text-xs text-gray-500 mt-1">
                             {new Date(replay.date).toLocaleString()}
                           </p>
-                        </p>
+                        </div>
                         <div className="flex gap-5">
                           <MdOutlineDeleteOutline
                             className="text-3xl text-red-500 hover:text-4xl duration-300 cursor-pointer"
@@ -123,7 +123,7 @@ const ReplayDash = ({ commentId }:any) => {
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           ))
       )}
       <AddReplay commentId={commentId} />

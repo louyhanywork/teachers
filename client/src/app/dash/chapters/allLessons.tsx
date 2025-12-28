@@ -44,12 +44,12 @@ const [allData, setAllData] = useState<Lesson[]>([]);
         .sort((a:any, b:any) => new Date(a.date).getTime() - new Date(b.date).getTime())
         .map((l, i) => (
           <div
-            className="pl-2 hover:pl-4 flex justify-between gap-4 items-center duration-300 my-2 cursor-pointer "
+            className="pl-2 truncate  hover:pl-4 flex justify-between gap-4 items-center duration-300 my-2 cursor-pointer "
             key={i}
             onClick={() => setLessonId(l.id)}
           >
             {l.title}
-            <div className="flex items-center gap-3 text-2xl">
+            <div className="flex items-center gap-3  text-2xl">
               <MdDeleteForever
                 className="cursor-pointer"
                 onClick={() => handleDeleteLesson(l.id)}
